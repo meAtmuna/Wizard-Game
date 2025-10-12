@@ -48,11 +48,31 @@ function createGameObject({ game, sprite, position, scale }) {
     return self;
 }
 
+function createHero({ game, sprite, position, scale }) {
+  const base = createGameObject({ game, sprite, position, scale });
+  const self = {};
+  Object.assign(self, base);
+  self.speed = 100;
+  self.maxFrame = 2;
+  // self.update = function(deltaTime) {};
+  self.draw = function(ctx) {
+    base.draw(ctx);
+  };
+  return self;
+}
+
 function createGame() {
   const self = {};
   self.world = createWorld();
+  self.hero = createHero({
+    game: self,
+    sprite: { x:0, y:0, width:64, height:64, image: document.getElementById("hero") },
+    position: { x: TILE_SIZE, y: TILE_SIZE },
+    scale: 1
+  });
 
   self.demoObj = createGameObject({ game: self, position: { x: TILE_SIZE, y: TILE_SIZE } });
+
 
   self.render = function(ctx, deltaTime) {
     self.world.drawBackground(ctx);
