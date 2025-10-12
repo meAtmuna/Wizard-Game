@@ -20,12 +20,43 @@ function createWorld() {
   return self;
 }
 
+function createGameObject({ game, sprite, position, scale }) {
+    const self = {};
+    self.game = game;
+    self.sprite = sprite ?? { x:0, y:0, width:TILE_SIZE, height:TILE_SIZE, image: null };
+    self.position = position ?? { x:0, y:0 };
+    self.scale = scale ?? 1;
+    self.destinationPosition = { x: self.position.x, y: self.position.y };
+    self.width = self.sprite.width * self.scale;
+    self.halfWidth = self.width / 2;
+    self.height = self.sprite.height * self.scale;
+  
+    self.draw = function(ctx) {
+      if (self.sprite.image && self.sprite.image.complete) {
+        ctx.drawImage(
+          self.sprite.image,
+          self.sprite.x * self.sprite.width,
+          self.sprite.y * self.sprite.height,
+          self.sprite.width, self.sprite.height,
+          self.position.x + TILE_SIZE/2 - self.halfWidth,
+          self.position.y + TILE_SIZE - self.height,
+          self.width, self.height
+        );
+      }
+    };
+  
+    return self;
+}
+
 function createGame() {
   const self = {};
   self.world = createWorld();
 
-  self.render = function(ctx) {
+  self.demoObj = createGameObject({ game: self, position: { x: TILE_SIZE, y: TILE_SIZE } });
+
+  self.render = function(ctx, deltaTime) {
     self.world.drawBackground(ctx);
+    self.demoObj.draw(ctx);
   };
 
   return self;
