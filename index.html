@@ -6,8 +6,14 @@
     <title>Main Page</title>
 </head>
 <body style="margin: 0; padding: 0; box-sizing: border-box; overflow: hidden;">
-    <canvas id="canvas"></canvas>
-    <img src="./Pellet Town.png" id="background" style="display: none;">
+    <div>
+        <h2 id="potions-collected" style="position: absolute; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Potions Collected: 0</h2>
+        <p style="position: absolute; color: red; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; top: 3%;"> you have to collect the 2 potions to win, use arrow keys to move</p>
+        <canvas id="canvas"></canvas>
+        <img src="./Pellet Town.png" id="background" style="display: none;">
+        <img src="./potion.png" id="potion" style="display: none;">
+        <img src="./wizard.png" id="wizard" style="display: none">
+    </div>
     <script src="./app.js"></script>
 </body>
 </html>
