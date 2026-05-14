@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="margin: 0; padding: 0; box-sizing: border-box; overflow: hidden;">
-    <div>
-        <h2 id="potions-collected" style="position: absolute; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Potions Collected: 0</h2>
-        <p style="position: absolute; color: red; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; top: 3%;"> you have to collect the 2 potions to win, use arrow keys to move</p>
+<body>
+    <div id="start-screen">
+        <div class="start-panel">
+            <h1>Wizard Potion Hunt</h1>
+            <p>Collect 2 magical potions and survive.</p>
+            <button id="start-btn">Start Game</button>
+        </div>
+    </div>
+    <div id="game-container">
+        <div class="game-info">
+            <h2 id="potions-collected">Potions Collected: 0</h2>
+            <p> you have to collect the 2 potions to win, use Arrow keys / WASD to move</p>
+        </div>
+
         <canvas id="canvas"></canvas>
-        <img src="./Pellet Town.png" id="background" style="display: none;">
-        <img src="./potion.png" id="potion" style="display: none;">
-        <img src="./wizard.png" id="wizard" style="display: none">
+
+        <img src="./Pellet Town.png" id="background" hidden>
+        <img src="./potion.png" id="potion" hidden>
+        <img src="./wizard.png" id="wizard" hidden>
     </div>
     <script src="./app.js"></script>
 </body>

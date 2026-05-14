@@ -1,3 +1,6 @@
+const startScreen = document.getElementById("start-screen");
+const gameContainer = document.getElementById("game-container");
+const startBtn = document.getElementById("start-btn");
 const potionsCollectedElement = document.getElementById("potions-collected");
 console.log(potionsCollectedElement)
 
@@ -434,4 +437,10 @@ function startGame() {
   requestAnimationFrame(animate);
 }
 
-window.addEventListener("load", startGame);
+startBtn.addEventListener("click", () =>{
+
+  startScreen.style.display = "none";
+  gameContainer.style.display = "flex";
+
+  startGame();
+})

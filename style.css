@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    overflow: hidden;
+    background: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#start-screen{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#000000b3, #000000b3), url("./Pellet Town.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.start-panel{
+    text-align: center;
+    color: white;
+    background: #00000099;
+    padding: 33px 60px;
+    border-radius: 17px;
+    backdrop-filter: blur(5px);
+}
+
+.start-panel h1{
+    font-size: 48px;
+    margin-bottom: 18px;
+}
+
+.start-panel p{
+    font-size: 19px;
+    margin-bottom: 28px;
+    color: #ddd;
+}
+
+#start-btn{
+    padding: 15px 34px;
+    font-size: 21px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #3a66a8;
+    color: white;
+    transition: 0.3s;
+}
+
+#start-btn:hover{
+    transform: scale(1.05);
+    background: #287bd9;
+}
+
+#game-container{
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-info{
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00000099;
+    padding: 15px 20px;
+    border-radius: 12px;
+    color: white;
+}
+
+#potions-collected{
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.game-info p{
+    color: #ffcc66;
+}
+
+canvas{
+    border:4px solid white;
+    image-rendering: pixelated;
+}
