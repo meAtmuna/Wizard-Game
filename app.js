@@ -26,6 +26,7 @@ const RIGHT = "RIGHT";
 const UP = "UP";
 const DOWN = "DOWN";
 let potionsCollected = 0;
+let gameEnded = false;
 
 
 function createWorld() {
@@ -308,6 +309,57 @@ function createWizard({ game, sprite, position, scale }) {
   return self;
 }
 
+function createEnemy({ game, sprite, position, scale }) {
+  const base = createGameObject({ game, sprite, position, scale });
+  const self = {};
+
+  Object.assign(self, base);
+
+  self.speed = 0.8;
+  self.maxFrame = 2;
+
+  self.update = function () {
+    const player = self.game. wizard;
+
+    const dx = player.position.x - self.position.x;
+    const dy = player.position.y - self.position.y;
+    
+    const distance = Math.hypot(dx, dy);
+
+    let nextX = self.position.x;
+    let nextY = self.position.y;
+    
+    if (distance > 1) {
+      nextX+= (dx / distance) * self.speed;
+      nextY += (dy / distance) * self.speed;
+    }
+
+    const col = Math.floor((nextX + HALF_TILE) / TILE_SIZE);
+    const row = Math.floor((nextY + HALF_TILE) / TILE_SIZE);
+
+    const hitWall = self.game.world.getTile(
+      self.game.world.level1.collisionLayer, row, col 
+    ) === 1;
+
+    if (!hitWall) {
+      self.position.x = nextX;
+      self.position.y = nextY;
+    }
+
+    if (distance < TILE_SIZE && !gameEnded) {
+      gameEnded = true;
+
+      alert("Game Over!");
+      location.reload();
+    }
+  }
+
+  self.draw = function(ctx) {
+    base.draw(ctx);
+  }
+
+  return self;
+}
 
 function createInput(game) {
   const self = {};
@@ -382,6 +434,20 @@ function createGame() {
     position: { x: 20 * TILE_SIZE, y: 25 * TILE_SIZE },
     scale: TILE_SIZE / 30,
   });
+
+  self.enemy = createEnemy({
+    game: self, 
+    sprite: {
+      x: 0, 
+      y: 2, 
+      width: 64, 
+      height: 64,
+      image: document.getElementById("enemy"),
+    },
+    position: { x: 25 * TILE_SIZE, y: 24 * TILE_SIZE }, 
+    scale: TILE_SIZE / 30,
+  });
+
   self.input = createInput(self);
 
   self.eventUpdate = false;
@@ -398,6 +464,8 @@ function createGame() {
     self.wizard.update(deltaTime);
     self.world.drawBackground(ctx);
     self.world.drawPotions(ctx);
+    self.enemy.update();
+    self.enemy.draw(ctx);
 
     if (self.debug) self.world.drawGrid(ctx);
     self.wizard.draw(ctx);
